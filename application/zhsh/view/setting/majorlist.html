@@ -1,0 +1,186 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>招生管理平台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!--base css styles-->
+    <link rel="stylesheet" href="__CSS__/bootstrap/css/bootstrap.css">
+    {include file="public/header"}
+</head>
+<body>
+
+<!-- BEGIN 皮肤设置 -->
+{include file="public/skin-r" /}
+<!-- END 皮肤设置 -->
+
+<!-- BEGIN Navbar -->
+{include file="public/navbar-t" /}
+<!-- END Navbar -->
+
+<!-- BEGIN Container -->
+<div class="container" id="main-container">
+    <!-- BEGIN Sidebar -->
+    {include file="public/sidebar-l" /}
+    <!-- END Sidebar -->
+
+    <!-- BEGIN Content -->
+    <div id="main-content">
+        <!-- BEGIN Page Title -->
+        <div class="page-title">
+            <div>
+                <h1><i class="fa fa-file-o"></i> 招生管理平台</h1>
+                <h4>数据管理中心</h4>
+            </div>
+        </div>
+        <!-- END Page Title -->
+
+        <!-- BEGIN Breadcrumb -->
+        <div id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><i class="fa fa-home"></i>起始页</li>
+                <li><span class="divider"><i class="fa fa-angle-right"></i></span>学校管理</li>
+                <li class="active"><span class="divider"><i class="fa fa-angle-right"></i></span>专业管理</li>
+            </ul>
+        </div>
+        <!-- END Breadcrumb -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-title">
+                        <h3><i class="fa fa-table"></i>学校专业列表</h3>
+                        <div class="box-tool">
+                            <a href="{:url('majSave',['type'=>'kha4'])}" data-toggle="modal" class="btn btn-success org1-bin">新增专业</a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-advance table-hover">
+                                <thead>
+                                <tr>
+                                    <th style="width:18px"><input type="checkbox"></th>
+                                    <th>#</th>
+                                    <th>专业名称</th>
+                                    <th>院系名称</th>
+                                    <th class="visible-md visible-lg" style="width:130px">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="list" id="md"}
+                                    <tr class="table-flag-blue">
+                                        <td><input type="checkbox"></td>
+                                        <td>{$md.maj_id}</td>
+                                        <td>{$md.maj_name}</td>
+                                        <td>{$md.org_name}</td>
+                                        <td class="visible-md visible-lg">
+                                            <div class="btn-group">
+                                                <a title="" class="btn btn-sm show-tooltip" href="{:url('majSave',['mid'=>$md.maj_id,'type'=>'hj3n'])}"
+                                                   data-orgid="{$md.maj_id}" data-original-title="编辑">
+                                                    <i class="fa fa-edit"></i></a>
+                                                <a title="" class="btn btn-sm btn-danger show-tooltip" href="#" data-orgdel="{$md.maj_id}"
+                                                   onclick="delete_o(this)" data-original-title="删除">
+                                                    <i class="fa fa-trash-o"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="text-center">
+                            {$list->render()}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--footer star-->
+        {include file="public/footer"}
+        <!--footer end-->
+        <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+    </div>
+    <!-- END Content -->
+</div>
+<!-- END Container -->
+
+<!--begin model-->
+<div id="modal-3" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel2">汉仁恒教友情提示</h3>
+            </div>
+            <div class="modal-body">
+                <p>确定删除所选项？（删除后无法恢复）</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">返回</button>
+                <button id="stud_lee" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-4" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel3">汉仁恒教友情提示</h3>
+            </div>
+            <div class="modal-body lee-4">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--basic scripts-->
+<script src="__CSS__/jquery/jquery-2.1.4.min.js"></script>
+<script src="__CSS__/bootstrap/js/bootstrap.min.js"></script>
+<script src="__CSS__/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!--basic scripts end-->
+<script src="__CSS__/jquery-cookie/jquery.cookie.js"></script>
+<script src="__JS__/flaty.js"></script>
+<script>
+    $(function () {
+        $("#lee-1").addClass('active')
+    });
+    //删除操作
+    function delete_o(org){
+        var id = $(org).data("orgdel");
+        $("#stud_lee").data("d_id",id);
+        $("#modal-3").modal().show();
+    }
+    $("#stud_lee").click(function () {
+        var id =  $("#stud_lee").data("d_id");
+        $.ajax({
+            url:"delete",
+            type:"post",
+            dataType:"json",
+            data:{id:id,data:"major"},
+            success:function (data) {
+                if (data.code === 101){
+                    location.reload()
+                }else{
+                    $(".lee-4 p").html(data.message);
+                    $("#modal-4").modal().show();
+                }
+            },
+            error:function () {
+                alert("网络请求错误")
+            }
+        })
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>招生管理平台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!--base css styles-->
+    <link rel="stylesheet" href="__CSS__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap-fileupload/bootstrap-fileupload.css" />
+
+    {include file="public/header"}
+</head>
+    <body>
+    <!-- BEGIN 皮肤设置 -->
+    {include file="public/skin-r" /}
+    <!-- END 皮肤设置 -->
+
+    <!-- BEGIN Navbar -->
+    {include file="public/navbar-t" /}
+    <!-- END Navbar -->
+
+        <!-- BEGIN Container -->
+        <div class="container" id="main-container">
+            <!-- BEGIN Sidebar -->
+            {include file="public/sidebar-l" /}
+            <!-- END Sidebar -->
+
+            <!-- BEGIN Content -->
+            <div id="main-content">
+                <!-- BEGIN Page Title -->
+                <div class="page-title">
+                    <div>
+                        <h1><i class="fa fa-file-o"></i> 招生管理平台</h1>
+                        <h4>数据管理中心</h4>
+                    </div>
+                </div>
+                <!-- END Page Title -->
+
+                <!-- BEGIN Breadcrumb -->
+                <div id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li><i class="fa fa-home"></i>起始页</li>
+                        <li><span class="divider"><i class="fa fa-angle-right"></i></span>专题管理</li>
+                        <li class="active"><span class="divider"><i class="fa fa-angle-right"></i></span>添加专题</li>
+                    </ul>
+                </div>
+                <!-- END Breadcrumb -->
+
+                <!-- BEGIN Main Content -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-title">
+                                <h3><i class="fa fa-bars"></i>新增专题信息</h3>
+                                <div class="box-tool">
+                                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                                    <!--<a data-action="close" href="#"><i class="fa fa-times"></i></a>-->
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                 <form id="comAdd" action="{:url('subject/enrollAdd')}" enctype="multipart/form-data" method="post" class="form-horizontal">
+                                     <div class="form-group">
+                                         <label class="col-sm-3 col-lg-2 control-label">专题类别</label>
+                                         <div class="col-sm-3 col-lg-3 controls">
+                                             <select name="sub_id" class="form-control" tabindex="1">
+                                                 <option value="0">请选择</option>
+                                                 {foreach name="sub" item="vo" key="k" }
+                                                 <option value="{$vo.sub_id}" >{$vo.sub_name}</option>
+                                                 {/foreach}
+                                             </select>
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">专题标题</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <input name="enr_title" type="text" class="form-control" placeholder="标题名称"/>
+                                          <span class="help-inline"></span>
+                                       </div>
+                                    </div>
+                                     <div class="form-group">
+                                         <label class="col-sm-3 col-lg-2 control-label">内容摘要</label>
+                                         <div class="col-sm-9 col-lg-9 controls">
+                                             <textarea name="enr_summary" class="form-control"  id="abstract" placeholder="内容摘要……"></textarea>
+                                             <span class="help-inline"></span>
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-sm-3 col-lg-2 control-label">缩略图</label>
+                                         <div class="col-sm-9 col-lg-10 controls">
+                                             <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                 <div class="fileupload-new img-thumbnail" style="width: 200px; height: 150px;">
+                                                     <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+                                                 </div>
+                                                 <div class="fileupload-preview fileupload-exists img-thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                 <div>
+                                               <span class="btn btn-default btn-file"><span class="fileupload-new">选择图片</span>
+                                               <span class="fileupload-exists">更换</span>
+                                               <input type="file" name="enr_logo" class="file-input"></span>
+                                                     <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">删除</a>
+                                                 </div>
+                                             </div>
+                                             <span class="label label-important">提示!</span>
+                                             <span>附图IMG-缩略图只支持最新的Firefox，Chrome，Opera，Safari和InternetExplorer 10</span>
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-sm-3 col-lg-2 control-label" for="ueditor">专题内容</label>
+                                         <div class="col-sm-9 col-lg-9 controls">
+                                             <textarea name="enr_content" id="ueditor">这里输入内容</textarea>
+                                             <span class="help-inline"></span>
+                                         </div>
+                                     </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                           <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>保存</button>
+                                        </div>
+                                    </div>
+                                 </form>
+                                <form style="display: none" action="" enctype="multipart/form-data" method="post" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 col-lg-2 control-label">文件上传</label>
+                                        <div class="col-sm-3 col-lg-4 controls">
+                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <div class="input-group">
+                                                    <div class="form-control uneditable-input">
+                                                        <i class="fa fa-file fileupload-exists"></i>
+                                                        <span class="fileupload-preview"></span>
+                                                    </div>
+                                                    <div class="input-group-btn">
+                                                        <a class="btn bun-default btn-file">
+                                                            <span class="fileupload-new">选择文件</span>
+                                                            <span class="fileupload-exists">更换</span>
+                                                            <input type="file" class="file-input"/>
+                                                        </a>
+                                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">取消</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Main Content -->
+
+                <!--footer star-->
+                {include file="public/footer"}
+                <!--footer end-->
+
+                <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+            </div>
+            <!-- END Content -->
+        </div>
+        <!-- END Container -->
+
+    <div id="modal-5" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel5">选择文件</h3>
+                </div>
+                <div class="modal-body lee-5">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="file_name">选择文件</label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <input type="file" placeholder="分类名称" id="file_name" class="form-control"/>
+                                <span class="help-inline"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="tjo" data-dismiss="modal">导入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--basic scripts-->
+    <script src="__CSS__/jquery/jquery-2.1.4.min.js"></script>
+    <script src="__CSS__/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__CSS__/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!--basic scripts end-->
+    <script src="__CSS__/jquery-cookie/jquery.cookie.js"></script>
+    <script src="__JS__/flaty.js"></script>
+    <script type="text/javascript" src="__CSS__/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+
+    <!--Ueditor-->
+    <script type="text/javascript" charset="utf-8" src="__CSS__/Ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__CSS__/Ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="__CSS__/Ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script>
+        window.UEDITOR_HOME_URL = "/uploads/";
+
+        var ue = UE.getEditor('ueditor', {
+            toolbars: [
+//                ['source', 'undo', 'redo','bold', 'italic', 'underline', 'paragraph','fontfamily', 'fontsize','forecolor',
+//                    'insertorderedlist', 'insertunorderedlist','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify',
+//                    'selectall', 'cleardoc']
+                ['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                    'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                    'directionalityltr', 'directionalityrtl', 'indent', '|',
+                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                    'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                    'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'webapp', 'pagebreak', 'template', 'background', '|',
+                    'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+                    'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                    'print', 'preview', 'searchreplace', 'drafts', 'help']
+            ],
+            autoHeightEnabled: true,
+            autoFloatEnabled: true
+        });
+        function getPlainTxt() {
+            var title=$('#title').val();
+            var arr = [];
+            arr.push(UE.getEditor('ueditor').getPlainTxt());
+            arr=arr.join("\n");
+            $.ajax({
+                url:'addsub',
+                type:'post',
+                dataType:'json',
+                data:{title:title,data:arr},
+                success:function (data) {
+                    //console.log(data);
+                    if(data.code==405){
+                        $('.lee-4 p').html(data.mes);
+                        $("#modal-4").modal().show();
+                    }
+                    location.reload();
+
+                },
+                error:function () {
+                    $('.lee-4 p').html('网络请求错误');
+                    $("#modal-4").modal().show();
+                }
+            });
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#lee-2").addClass('active')
+        });
+        $('#pro').change(function(){
+            var pro_id=$("#pro").val();
+            $.ajax({
+                type:"post",
+                url:"{:url('company/three')}",
+                data:{pro_id:pro_id},
+                dataType:"json",
+                success:function(data){
+                    $('#city').html(data);
+                }
+            });
+        });
+        $('#city').change(function(){
+            $.ajax({
+                type:"post",
+                url:"{:url('company/three')}",
+                data:'pro_id='+$('#city').val(),
+                dataType:"json",
+                success:function(data){
+                    $('#area').html(data);
+                }
+            });
+        });
+    </script>
+    {present name="msg"}
+    {$msg}
+    {/present}
+    </body>
+</html>
